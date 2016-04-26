@@ -10,14 +10,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.oklm.oklm.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:splitMotionEvents="false">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="High Score : "
-        android:id="@+id/textView" />
+        android:text="Start"
+        android:id="@+id/textView"
+        android:textSize="20dp" />
 
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/CloclImage"
+        android:background="@drawable/clocksuper"
+        android:layout_toEndOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,7 +38,50 @@
         android:id="@+id/goBoutton"
         />
 
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:background="@drawable/rougeresult"
+        android:gravity="center"
+        android:layout_marginTop="67dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/ResultRouge"
+      />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:background="@drawable/bleuresult"
+        android:gravity="center"
+        android:layout_marginTop="67dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/ResultBleu"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:background="@drawable/vertresult"
+        android:gravity="center"
+        android:layout_marginTop="67dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/ResultVert"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:background="@drawable/grisresult"
+        android:gravity="center"
+        android:layout_marginTop="67dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/ResultGris"
+        />
 
     <Button
         android:layout_width="70dp"
@@ -41,15 +92,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="70dp"
         android:id="@+id/button2" />
-
-    <Button
-        android:layout_width="70dp"
-        android:layout_height="100dp"
-        android:text=" "
-        android:background="@drawable/bouttonrouge"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="70dp" />
 
     <Button
         android:layout_width="70dp"
@@ -77,6 +119,23 @@
         android:id="@+id/button4"
         android:layout_alignTop="@+id/button3"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/Cup"
+        android:background="@drawable/cup"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEST"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
 
 
 
