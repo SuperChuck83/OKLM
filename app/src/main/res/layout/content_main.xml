@@ -15,5 +15,70 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="High Score : "
+        android:id="@+id/textView" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:background="@drawable/bouttongo"
+        android:gravity="center"
+        android:layout_marginTop="67dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/goBoutton"
+        />
+
+
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:text=" "
+        android:background="@drawable/bouttonrouge"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="70dp"
+        android:id="@+id/button2" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:text=" "
+        android:background="@drawable/bouttonrouge"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="70dp" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:text=" "
+        android:background="@drawable/bouttonbleu"
+        android:id="@+id/button"
+        android:layout_alignTop="@+id/button2"
+        android:layout_toEndOf="@+id/button2" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:text=" "
+        android:background="@drawable/bouttonvert"
+        android:id="@+id/button3"
+        android:layout_alignTop="@+id/button"
+        android:layout_toStartOf="@+id/button4" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:text=" "
+        android:background="@drawable/bouttongris"
+        android:id="@+id/button4"
+        android:layout_alignTop="@+id/button3"
+        android:layout_alignParentEnd="true" />
+
+
+
+
 </RelativeLayout>
