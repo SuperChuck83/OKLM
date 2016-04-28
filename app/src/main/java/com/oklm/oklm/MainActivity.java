@@ -1,7 +1,10 @@
 package com.oklm.oklm;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,13 +28,48 @@ public class MainActivity extends AppCompatActivity {
     private int score=0;
     private boolean jeuxEnCours=false;
     private ArrayList<ImageView> Colorresult;
+
+    //le chrono :
+    private int timer=30000;
+    //Le timer
+    private CountDownTimer  Test;
+
+    public TextView Chrono;
+
+    private Button Go;
+    private FragmentManager fm = getSupportFragmentManager();
+
+        //preferences
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
+
+    //high score
+    private int score30;
+    private int score60;
+    private TextView TextScore30;
+    private TextView TextScore60;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView Chrono = (TextView)findViewById(R.id.textView);
+        Chrono = (TextView)findViewById(R.id.textView);
+        Chrono.setText(timer/1000 + "" );
         final TextView Score = (TextView)findViewById(R.id.textView2);
+
+        //gestion des préférences utilisateurs
+        settings= getSharedPreferences("AppliOklm", 0);
+        editor=settings.edit();
+
+        score30=settings.getInt("score30", 0);
+        score60=settings.getInt("score60", 0);
+
+
+        TextScore30 = (TextView)findViewById(R.id.textView3);
+        TextScore60 = (TextView)findViewById(R.id.textView4);
+        AfficherHighScore(); //affiche les scores sauvegarder à l'écran
+
 
         //gestion des couleurs imageview
         final ImageView RougeResult = (ImageView)findViewById(R.id.ResultRouge);
@@ -46,15 +84,10 @@ public class MainActivity extends AppCompatActivity {
         Colorresult.add(GrisResult); //3
 
 
-
-
-
-
         /*** Gestion du bouton GO***/
-        final Button Go = (Button) findViewById(R.id.goBoutton);
+         Go = (Button) findViewById(R.id.goBoutton);
        //initialisation Timer
-       final CountDownTimer  Test=  new CountDownTimer(30000, 1000) {
-
+        Test=  new CountDownTimer(timer, 1000) {
             public void onTick(long millisUntilFinished) {
               Chrono.setText(""+millisUntilFinished / 1000);
 
@@ -70,14 +103,30 @@ public class MainActivity extends AppCompatActivity {
                 VertResult.setVisibility(View.GONE);
                 GrisResult.setVisibility(View.GONE);
 
+                //on change les high score
+                if(timer==30000 && score > score30)
+                {
+                    editor.putInt("score30", score);
+                    editor.commit();
+                    AfficherHighScore();
+                }
+                else if(timer==60000 && score > score60){
+                    editor.putInt("score60", score);
+                    editor.commit();
+                    AfficherHighScore();
+                }
+
+
+
+
                 jeuxEnCours=false;
             }
         };
 
-
         Go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //4 couleurs on randomize sur 4
                 NewColor(); //fonction qui lance le jeux
                 score=0;
@@ -89,7 +138,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //gestion click sur le score image
+        ImageView Cup = (ImageView)findViewById(R.id.Cup);
+        Cup.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                Intent intent = new Intent (MainActivity.this, CreditActivity.class);
+                startActivity(intent);
 
+
+            }});
+
+
+        //gestion click sur l'horologe changement de timer.
+        ImageView CloclImage = (ImageView)findViewById(R.id.CloclImage);
+        CloclImage.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+
+                DialogTimer dialogtimer= new DialogTimer();
+                dialogtimer.show(fm, "titre");
+
+
+            }});
 
         //gestion du click sur un boutton de couleur
         Button BouttonRouge = (Button)findViewById(R.id.button2);
@@ -99,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
         BouttonRouge.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
+
                 if(jeuxEnCours ) {
                     if (Resultat == (int) Color.Rouge.getNumColor()) {
                         score = score + 1;
@@ -141,7 +211,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+public void AfficherHighScore() //affiche le score sauvegarder dans les préférences, si aucun score valeur par defaut = 0;
+{
 
+    TextScore30.setText("High Score(30sec):"+" "+settings.getInt("score30",0));
+    TextScore60.setText("High Score(60sec):"+" "+settings.getInt("score60",0));
+
+}
 
     //genère la prochaine couleur et affiche le resultat correspondant
     public void NewColor(){
@@ -210,4 +286,39 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //change la variable timer
+    public void ChangeTimer(int Time)
+    {
+        timer=Time;
+    }
+
+    public void ChangeCountDownTimer()
+    {
+        Test=null;
+        CountDownTimer  TEMP=  new CountDownTimer(timer, 1000) {
+        public void onTick(long millisUntilFinished) {
+            Chrono.setText(""+millisUntilFinished / 1000);
+
+        }
+
+        public void onFinish() {
+            Chrono.setText("Over!");
+            Go.setVisibility(View.VISIBLE);
+
+            //gone tous les results
+            Colorresult.get(0).setVisibility(View.GONE); //rouge
+            Colorresult.get(1).setVisibility(View.GONE); //bleu
+            Colorresult.get(2).setVisibility(View.GONE); //vert
+            Colorresult.get(3).setVisibility(View.GONE); //gris
+
+            jeuxEnCours=false;
+        }
+    };
+        Test= TEMP ;
+    }
+
+
+
+
 }

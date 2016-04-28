@@ -25,7 +25,9 @@
         android:layout_height="25dp"
         android:id="@+id/CloclImage"
         android:background="@drawable/clocksuper"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_toEndOf="@+id/textView"
+        android:clickable="true"
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -125,19 +127,37 @@
         android:layout_height="25dp"
         android:id="@+id/Cup"
         android:background="@drawable/cup"
+        android:clickable="true"
         android:layout_alignTop="@+id/textView2"
         android:layout_toStartOf="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TEST"
         android:id="@+id/textView2"
         android:layout_alignTop="@+id/textView"
         android:layout_alignParentEnd="true"
         android:textSize="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="High score(30sec): "
+        android:id="@+id/textView3"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/textView4"
+        android:textSize="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="High score(60sec):"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView3"
+        android:layout_toRightOf="@+id/CloclImage"
+        android:textSize="20dp"/>
 
 
 </RelativeLayout>
